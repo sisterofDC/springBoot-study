@@ -1,0 +1,110 @@
+<form id="addOrUpdateForm" lay-filter="addOrUpdateForm" class="layui-form model-form">
+
+    <input name="id" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">视频名字</label>
+        <div class="layui-input-block">
+            <input name="videoName" class="layui-input" placeholder="请输入视频名字" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">视频类型</label>
+        <div class="layui-input-block">
+            <input name="videoType" class="layui-input" placeholder="请输入视频类型" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">备注</label>
+        <div class="layui-input-block">
+            <input name="remark" class="layui-input" placeholder="请输入备注" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">视频上传时间</label>
+        <div class="layui-input-block">
+            <input type="text" name="videoUploadDate" id="videoUploadDateId" placeholder="请选择视频上传时间" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">视频保存路径</label>
+        <div class="layui-input-block">
+            <input name="videoStoragePath" class="layui-input" placeholder="请输入视频保存路径" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">视频大小</label>
+        <div class="layui-input-block">
+            <input name="videoSize" class="layui-input" placeholder="请输入视频大小" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">视频额外属性</label>
+        <div class="layui-input-block">
+            <input name="videoExtraProperties" class="layui-input" placeholder="请输入视频额外属性" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">视频访问次数</label>
+        <div class="layui-input-block">
+            <input name="videoPlayTimes" class="layui-input" placeholder="请输入视频访问次数" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-form-required">视频状态</label>
+        <div class="layui-input-block">
+            <input name="videoStatus" class="layui-input" placeholder="请输入视频状态" lay-verType="tips" lay-verify="required" required/>
+        </div>
+    </div>
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="formSubmitBtn" lay-submit>保存</button>
+    </div>
+</form>
+
+<script>
+    layui.use(['layer', 'form', 'admin', 'xnUtil', 'xmSelect', 'laydate'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var admin = layui.admin;
+        var xnUtil = layui.xnUtil;
+        var xmSelect = layui.xmSelect;
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#videoUploadDateId'
+        });
+
+        var editData = admin.getLayerData('#addOrUpdateForm').data;
+        if(editData !== null && editData !== undefined) {
+            form.val('addOrUpdateForm', editData);
+        }
+
+        /**
+         * 表单提交事件
+         */
+        form.on('submit(formSubmitBtn)', function (data) {
+            layer.load(2);
+
+            var url = editData ? getProjectUrl() + 'videoInformation/edit' : getProjectUrl() + 'videoInformation/add';
+            admin.req(url, JSON.stringify(data.field), function(res){
+                layer.msg(res.message, {icon: 1, time: 1000}, function () {
+                    admin.putLayerData('formOk', true, '#addOrUpdateForm');
+                    admin.closeDialog('#addOrUpdateForm');
+                });
+            }, 'post');
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

@@ -22,28 +22,16 @@ Snowy采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意
 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/xiaonuobase/snowy-layui
 6.若您的项目无法满足以上几点，可申请商业授权，获取Snowy商业授权许可，请在官网购买授权，地址为 https://www.xiaonuo.vip
  */
-package vip.xiaonuo;
+package vip.xiaonuo.modular.videoinformation.mapper;
 
-import cn.hutool.log.Log;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableAsync;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import vip.xiaonuo.modular.videoinformation.entity.VideoInformation;
 
 /**
- * SpringBoot方式启动类
+ * 视频信息
  *
- * @author yubaoshan
- * @date 2017/5/21 12:06
+ * @author sisterofdc
+ * @date 2023-12-07 15:09:55
  */
-@SpringBootApplication
-@EnableAsync
-public class SnowyApplication {
-
-    private static final Log log = Log.get();
-
-    public static void main(String[] args) {
-        SpringApplication.run(SnowyApplication.class, args);
-        log.info(">>> " + SnowyApplication.class.getSimpleName() + " is success!");
-    }
-
+public interface VideoInformationMapper extends BaseMapper<VideoInformation> {
 }

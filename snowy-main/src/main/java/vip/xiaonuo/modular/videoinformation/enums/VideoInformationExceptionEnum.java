@@ -22,28 +22,43 @@ Snowy采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意
 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/xiaonuobase/snowy-layui
 6.若您的项目无法满足以上几点，可申请商业授权，获取Snowy商业授权许可，请在官网购买授权，地址为 https://www.xiaonuo.vip
  */
-package vip.xiaonuo;
+package vip.xiaonuo.modular.videoinformation.enums;
 
-import cn.hutool.log.Log;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableAsync;
+import vip.xiaonuo.core.annotion.ExpEnumType;
+import vip.xiaonuo.core.exception.enums.abs.AbstractBaseExceptionEnum;
+import vip.xiaonuo.core.factory.ExpEnumCodeFactory;
+import vip.xiaonuo.sys.core.consts.SysExpEnumConstant;
 
 /**
- * SpringBoot方式启动类
+ * 视频信息
  *
- * @author yubaoshan
- * @date 2017/5/21 12:06
+ * @author sisterofdc
+ * @date 2023-12-07 15:09:55
  */
-@SpringBootApplication
-@EnableAsync
-public class SnowyApplication {
+@ExpEnumType(module = SysExpEnumConstant.SNOWY_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.SYS_POS_EXCEPTION_ENUM)
+public enum VideoInformationExceptionEnum implements AbstractBaseExceptionEnum {
 
-    private static final Log log = Log.get();
+    /**
+     * 数据不存在
+     */
+    NOT_EXIST(1, "此数据不存在");
 
-    public static void main(String[] args) {
-        SpringApplication.run(SnowyApplication.class, args);
-        log.info(">>> " + SnowyApplication.class.getSimpleName() + " is success!");
+    private final Integer code;
+
+    private final String message;
+        VideoInformationExceptionEnum(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    @Override
+    public Integer getCode() {
+        return ExpEnumCodeFactory.getExpEnumCode(this.getClass(), code);
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 
 }
